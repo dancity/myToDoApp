@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: whitesmoke;
+}
+
+.input-box {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.input-box input {
+  width: 60%;
+  padding: 2px;
+  padding-left: 6px;
+  font-size: 1rem;
+}
+
+.myButton {
+  margin-left: 0.5rem;
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #666666;
+  font-family: Arial;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+}
+.myButton:hover {
+  background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+  background-color: #f6f6f6;
+}
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.todo-list {
+  background-color: white;
+  margin: auto;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #efefef;
+  box-shadow:
+  /* The top layer shadow */ 0 1px 1px rgba(0, 0, 0, 0.15),
+    /* The second layer */ 0 10px 0 -5px #eee,
+    /* The second layer shadow */ 0 10px 1px -4px rgba(0, 0, 0, 0.15),
+    /* The third layer */ 0 20px 0 -10px #eee,
+    /* The third layer shadow */ 0 20px 1px -9px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 17px 20px 17px;
+  width: 90%;
+  border-bottom: 1px solid #cecece;
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+  font-size: 15px;
+  color: #333333;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+input[type="checkbox"]:focus {
+  outline: 0;
+}
+
+.trash-icon {
+  opacity: 0.1;
+  margin-left: auto;
+  display: flex;
+  height: 15px;
+  cursor: pointer;
+}
+
+.trash-icon:hover {
+  opacity: 0.9;
+}

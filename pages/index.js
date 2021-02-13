@@ -1,5 +1,13 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "../components/App.js";
+
 function Home() {
-  return <div>Hello</div>;
+  return (
+    <div>
+      <App />
+    </div>
+  );
 }
 
 export default Home;
