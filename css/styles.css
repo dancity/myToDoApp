@@ -50,6 +50,13 @@ body {
   top: 1px;
 }
 
+.todo-list p {
+  font-family: Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+  color: lightslategray;
+}
+
 .todo-list {
   background-color: white;
   margin: auto;
@@ -74,7 +81,7 @@ body {
   padding: 17px 20px 17px;
   width: 90%;
   border-bottom: 1px solid #cecece;
-  font-family: Roboto, sans-serif;
+  font-family: Helvetica, sans-serif;
   font-weight: 100;
   font-size: 15px;
   color: #333333;

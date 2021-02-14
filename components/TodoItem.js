@@ -3,41 +3,26 @@ import todosData from "../data/todosData";
 //import trash from "../images/trash.png";
 
 function TodoItem(props) {
-  const [checked, setChecked] = useState(props.item.completed);
-  let textStyle = checked
+  let textStyle = props.item.completed
     ? { textDecoration: "line-through", color: "lightgrey" }
     : null;
 
-  const [deleted, setDeleted] = useState(props.item.deleted);
-
-  function onChangeHandler() {
-    setChecked(!checked);
-
-    for (let item of todosData) {
-      if (item.id == props.item.id) {
-        item.completed = !checked;
-      }
-    }
-  }
-
-  function onClickHandler() {
-    setDeleted(!deleted);
-    for (let item of todosData) {
-      if (item.id == props.item.id) {
-        item.deleted = !deleted;
-      }
-    }
-  }
-
-  return props.item.deleted ? null : (
+  return (
     <div className="todo-item">
       <input
+        id={props.item.id}
+        name={props.item.id}
         type="checkbox"
-        checked={checked}
-        onChange={() => onChangeHandler()}
+        checked={props.item.completed}
+        onChange={() => props.checkFunction(props.index)}
       />
-      <p style={textStyle}>{props.item.text}</p>
-      <div className="trash-icon" onClick={() => onClickHandler()}>
+      <label for={props.item.id} style={textStyle}>
+        {props.item.text}
+      </label>
+      <div
+        className="trash-icon"
+        onClick={() => props.deleteFunction(props.index)}
+      >
         <img src="/img/trash.png"></img>
       </div>
     </div>
