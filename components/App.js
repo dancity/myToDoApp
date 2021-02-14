@@ -6,35 +6,28 @@ function App() {
   const [display, setDisplay] = useState(
     todosData.map((item) => <TodoItem key={item.id} item={item} />)
   );
-  const [newTodo, setNewTodo] = useState("");
 
-  function clickHandler() {
+  function submitHandler(event) {
+    event.preventDefault();
     todosData.push({
       id: display.length,
-      text: newTodo,
+      text: event.target[0].value,
       completed: false,
+      deleted: false,
     });
     setDisplay(todosData.map((item) => <TodoItem key={item.id} item={item} />));
-    setNewTodo("");
+    event.target[0].value = "";
   }
 
   return (
     <div>
       <div className="input-box">
-        <input
-          type="text"
-          placeholder="Nova tarefa"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              clickHandler();
-            }
-          }}
-        />
-        <button className="myButton" onClick={clickHandler}>
-          Adicionar
-        </button>
+        <form onSubmit={submitHandler}>
+          <input type="text" placeholder="Nova tarefa" />
+          <button type="submit" className="myButton">
+            Adicionar
+          </button>
+        </form>
       </div>
       <div className="todo-list">{display}</div>
     </div>
