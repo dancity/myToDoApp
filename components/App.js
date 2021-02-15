@@ -6,7 +6,20 @@ function App() {
   const [displayRender, setDisplayRender] = useState([]);
   const [isEmpty, setEmpty] = useState(!!todosData);
 
+  useEffect(() => {
+    const localItems = localStorage.getItem("list");
+
+    if (localItems) {
+      setTodosData(JSON.parse(localItems));
+    }
+  }, []);
+
   function renderList() {
+    console.log("antes", todosData);
+
+    localStorage.setItem("list", JSON.stringify(todosData));
+    console.log("depois:", todosData);
+
     for (let x of todosData) {
       if (x.deleted === false) {
         setEmpty(false);
