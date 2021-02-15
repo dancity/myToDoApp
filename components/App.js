@@ -3,7 +3,7 @@ import TodoItem from "../components/TodoItem";
 
 function App() {
   const [todosData, setTodosData] = useState([]);
-  const [listIsEmpty, setListIsEmpty] = useState();
+  const [listIsEmpty, setListIsEmpty] = useState(true);
 
   useEffect(() => {
     const localItems = localStorage.getItem("list");
