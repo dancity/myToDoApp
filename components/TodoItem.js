@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import todosData from "../data/todosData";
-//import trash from "../images/trash.png";
 
 function TodoItem(props) {
   let textStyle = props.item.completed
@@ -14,14 +12,14 @@ function TodoItem(props) {
         name={props.item.id}
         type="checkbox"
         checked={props.item.completed}
-        onChange={() => props.checkFunction(props.index)}
+        onChange={() => props.checkFunction(props.item.id)}
       />
-      <label for={props.item.id} style={textStyle}>
+      <label htmlFor={props.item.id} style={textStyle}>
         {props.item.text}
       </label>
       <div
         className="trash-icon"
-        onClick={() => props.deleteFunction(props.index)}
+        onClick={() => props.deleteFunction(props.item.id)}
       >
         <img src="/img/trash.png"></img>
       </div>

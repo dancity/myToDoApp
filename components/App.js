@@ -3,8 +3,7 @@ import TodoItem from "../components/TodoItem";
 
 function App() {
   const [todosData, setTodosData] = useState([]);
-  const [displayRender, setDisplayRender] = useState([]);
-  const [isEmpty, setEmpty] = useState(!!todosData);
+  const [listIsEmpty, setListIsEmpty] = useState();
 
   useEffect(() => {
     const localItems = localStorage.getItem("list");
@@ -12,61 +11,65 @@ function App() {
     if (localItems) {
       setTodosData(JSON.parse(localItems));
     }
+
+    checkIfEmpty();
   }, []);
 
-  function renderList() {
-    console.log("antes", todosData);
-
+  useEffect(() => {
     localStorage.setItem("list", JSON.stringify(todosData));
-    console.log("depois:", todosData);
+    checkIfEmpty();
+  }, [todosData]);
 
-    for (let x of todosData) {
-      if (x.deleted === false) {
-        setEmpty(false);
+  function checkIfEmpty() {
+    for (let item of todosData) {
+      if (item.deleted === false) {
+        setListIsEmpty(false);
         break;
       }
-      setEmpty(true);
+      setListIsEmpty(true);
     }
-
-    setDisplayRender(
-      todosData.map((todo, index) =>
-        todo.deleted ? null : (
-          <TodoItem
-            key={todo.id}
-            item={todo}
-            index={index}
-            deleteFunction={deleteTodo}
-            checkFunction={changeTodoCheck}
-          />
-        )
-      )
-    );
   }
 
   function addTodo(event) {
     event.preventDefault();
-    todosData.push({
-      id: todosData.length,
-      text: event.target[0].value,
-      completed: false,
-      deleted: false,
-    });
-    setTodosData(todosData);
-    setEmpty(false);
-    renderList();
+    setTodosData([
+      ...todosData,
+      {
+        id: todosData.length,
+        text: event.target[0].value,
+        completed: false,
+        deleted: false,
+      },
+    ]);
     event.target[0].value = "";
   }
 
-  function deleteTodo(todoIndex) {
-    todosData[todoIndex].deleted = true;
-    setTodosData(todosData);
-    renderList();
+  function deleteTodo(todoID) {
+    setTodosData(
+      todosData.map((item) => {
+        if (item.id === todoID) {
+          return {
+            ...item,
+            deleted: true,
+          };
+        }
+        return item;
+      })
+    );
   }
 
-  function changeTodoCheck(todoIndex) {
-    todosData[todoIndex].completed = !todosData[todoIndex].completed;
-    setTodosData(todosData);
-    renderList();
+  function changeTodoCheck(todoID) {
+    setTodosData(
+      todosData.map((item) => {
+        if (item.id === todoID) {
+          return {
+            ...item,
+            completed: !item.completed,
+          };
+        }
+        return item;
+      })
+    );
   }
 
   return (
@@ -79,13 +82,21 @@ function App() {
           </button>
         </form>
       </div>
-      {isEmpty ? (
-        <div className="todo-list">
-          <p>Não há nenhuma tarefa</p>
-        </div>
-      ) : (
-        <div className="todo-list">{displayRender}</div>
-      )}
+
+      <div className="todo-list">
+        <p>{listIsEmpty && "Ainda não há uma tarefa"}</p>
+        {todosData.map((todo, index) =>
+          todo.deleted ? null : (
+            <TodoItem
+              key={todo.id}
+              item={todo}
+              index={index}
+              deleteFunction={deleteTodo}
+              checkFunction={changeTodoCheck}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 }
